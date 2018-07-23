@@ -1,0 +1,174 @@
+{
+  "contractName": "mainContract",
+  "abi": [
+    {
+      "inputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    }
+  ],
+  "bytecode": "0x6080604052348015600f57600080fd5b50603580601d6000396000f3006080604052600080fd00a165627a7a72305820d5620fc5113985135a7a0c296b82fb9f3618b531ab7ff39b1c8ffc395592b0050029",
+  "deployedBytecode": "0x6080604052600080fd00a165627a7a72305820d5620fc5113985135a7a0c296b82fb9f3618b531ab7ff39b1c8ffc395592b0050029",
+  "sourceMap": "27:47:1:-;;;53:19;8:9:-1;5:2;;;30:1;27;20:12;5:2;53:19:1;27:47;;;;;;",
+  "deployedSourceMap": "27:47:1:-;;;;;",
+  "source": "pragma solidity ^0.4.22;\n\n\ncontract mainContract {\n  constructor() {\n  }\n}\n",
+  "sourcePath": "/home/sasha/TrustlessComputing/TrustlessComputing/contracts/mainContract.sol",
+  "ast": {
+    "absolutePath": "/home/sasha/TrustlessComputing/TrustlessComputing/contracts/mainContract.sol",
+    "exportedSymbols": {
+      "mainContract": [
+        63
+      ]
+    },
+    "id": 64,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 58,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".22"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 63,
+        "linearizedBaseContracts": [
+          63
+        ],
+        "name": "mainContract",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 61,
+              "nodeType": "Block",
+              "src": "67:5:1",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 62,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 59,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "64:2:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 60,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "67:0:1"
+            },
+            "scope": 63,
+            "src": "53:19:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 64,
+        "src": "27:47:1"
+      }
+    ],
+    "src": "0:75:1"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/sasha/TrustlessComputing/TrustlessComputing/contracts/mainContract.sol",
+    "exportedSymbols": {
+      "mainContract": [
+        63
+      ]
+    },
+    "id": 64,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 58,
+        "literals": [
+          "solidity",
+          "^",
+          "0.4",
+          ".22"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:1"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 63,
+        "linearizedBaseContracts": [
+          63
+        ],
+        "name": "mainContract",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "body": {
+              "id": 61,
+              "nodeType": "Block",
+              "src": "67:5:1",
+              "statements": []
+            },
+            "documentation": null,
+            "id": 62,
+            "implemented": true,
+            "isConstructor": true,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 59,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "64:2:1"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 60,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "67:0:1"
+            },
+            "scope": 63,
+            "src": "53:19:1",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 64,
+        "src": "27:47:1"
+      }
+    ],
+    "src": "0:75:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.24+commit.e67f0147.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "2.0.1",
+  "updatedAt": "2018-07-23T01:41:16.095Z"
+}
