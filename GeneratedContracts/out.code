@@ -1,0 +1,11 @@
+def main(c,private a,private b):
+	c == (a * b)
+	sym_0 = ((a + b) - 1148)
+	# sym_1 = if sym_0 == 0 then 0 else 1 fi
+	# sym_2 = if sym_0 == 0 then 1 else (1 / sym_0) fi
+	sym_1 == (sym_0 * sym_2)
+	sym_3 = (1 - sym_1)
+	0 == (sym_3 * sym_0)
+	counter = ((sym_3 * 0) + (sym_1 * 1))
+	counter == 1
+	return 1

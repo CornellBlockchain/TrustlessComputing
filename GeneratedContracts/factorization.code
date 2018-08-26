@@ -1,0 +1,6 @@
+// a and b are factorization of c
+def main(c, private a, private b):
+  c == a * b
+  counter = if a+b == 1148 then 0 else 1 fi  
+  counter == 1
+  return 1
