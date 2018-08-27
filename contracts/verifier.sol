@@ -210,7 +210,7 @@ contract Verifier {
             uint[2] h,
             uint[2] k,
             uint[2] input
-        ) public returns (bool r) {
+        ) public returns (uint256 verification) {
         Proof memory proof;
         proof.A = Pairing.G1Point(a[0], a[1]);
         proof.A_p = Pairing.G1Point(a_p[0], a_p[1]);
@@ -226,7 +226,8 @@ contract Verifier {
         }
         if (verify(inputValues, proof) == 0) {
             emit Verified("Transaction successfully verified.");
-            return true;
+            mainContract.receiveVerification(input[0], input[1],msg.sender)
+            return true; // change if this is wrong
         } else {
             return false;
         }
