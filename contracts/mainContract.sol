@@ -2,82 +2,95 @@ pragma solidity ^0.4.24;
 
 
 contract mainContract {
-  event Request(address indexed requester, uint256 indexed bounty, uint256 prime);
-  event Verification(address indexed solver);
-  event Succerss(uint256 indexed p,uint256 indexed q,uint256 indexed r);
+  event Request(address indexed requester, uint256 id, uint256 indexed bounty, uint256 prime);
+  event Verification(address indexed solver, uint256 indexed id);
+  event Success(uint256 indexed p,uint256 indexed q,uint256 indexed r);
 
 
-  mapping (bytes32 => uint256) bounties; // stores the bounty for solving each one
-  mapping (bytes32 => address) owners; // stores the person who requested each problem
-  mapping (bytes32 => uint256) problems; // stores the prime to factor associated with a problemid
-  mapping (uint256 => bytes32) problemToNonces;
-  mapping (bytes32 => bool) verifiedProblems;
-  mapping (bytes32 => address) rightfulOwner;
+  mapping (uint256 => uint256) bounties; // stores the bounty for solving each one
+  mapping (uint256 => address) owners; // stores the person who requested each problem
+  mapping (uint256 => uint256) problems; // stores the prime to factor associated with a problemid
+  mapping (uint256 => uint256) problemToNonces;
+  mapping (uint256 => bool) verifiedProblems;
+  mapping (uint256 => address) rightfulOwner;
 
   uint256 nonce;
-
-  constructor() {
+  uint256 threshold;
+  address verifierContract;
+  constructor(address v) {
     nonce = 0;
+    threshold = 500 wei;
+    verifierContract = v;
   }
 
-  function requestComputing(uint256 bounty, bytes32 identifier, bytes problem) returns (bool success){
+  function requestComputing(uint256 bounty, uint256 problem) returns (uint256 Generatednonce){
     nonce++;
-    if (bounty > threshold){
-      //initialize stuff
+    if (bounty > threshold && msg.value >= bounty){
+      bounties[nonce] = bounty;
+      owners[nonce] = msg.sender;
+      problems[nonce] = problem;
+      problemToNonces[problem] = nonce;
+      verifiedProblems[nonce] = false;
+      emit Request(msg.sender, bounty, nonce, problem);
+      return nonce;
     }else{
-      throw;
+      assert(true);
     }
   }
 
   modifier verifierOnly(){
-    require(msg.sender == verifierContract)
+    require(msg.sender == verifierContract);
     _;
 
   }
 
-  function receiveVerification(uint256 problem0, uint256 problem1, address sender) returns (bool success)
-    verifierOnly()
+  function receiveVerification(uint256 problem0, address sender) verifierOnly
+    returns (bool success)
   {
-    if(problem != 0){
-      problemId = problemToNonces[problem0];
-      verifiedProblems[problemId] = true
-      Verification(sender);
+    if(problem0 != 0){
+      uint256 problemId = problemToNonces[problem0];
+      verifiedProblems[problemId] = true;
+      emit Verification(sender, problemId);
       rightfulOwner[problemId] = sender;
-      //some other stuff i think
+      return true;
     }
+    return false;
   }
 
 
   function receiveProperFactoringAndPayout(uint256 p, uint256 q, uint256 r) returns (bool success){
-      if (p*q == r){
-        Success(p,q,r);
-        //payout
+      if (p*q == r && rightfulOwner[problemToNonces[p*q]] == msg.sender){
+        uint256 problemId = problemToNonces[p*q];
+        verifiedProblems[problemId] = true;
+        emit Success(p,q,r);
+        msg.sender.transfer(bounties[problemId]);
+        return true;
       }else{
         return false;
       }
   }
 
-  function cancelRequest(bytes32 identifier) returns success{
+  function cancelRequest(uint256 identifier) returns (bool success){
     if(msg.sender == owners[identifier]){
       delete bounties[identifier];
       delete owners[identifier];
       uint256 temp = problems[identifier];
       delete problems[identifier];
-      delete problemsToNonces[identifier];
+      delete problemToNonces[identifier];
       return true;
     }else{
       return false;
     }
   }
 
-  function getProblem(bytes32 identifier){
-    return problems[identifier]
+  function getProblem(uint256 identifier) returns (uint256 problem){
+    return problems[identifier];
   }
-  function getBounty(bytes32 identifier){
-    return bounties[identifier]
+  function getBounty(uint256 identifier) returns (uint256 bounty){
+    return bounties[identifier];
   }
-  function getOwner(bytes32 identifier){
-    return owners[identifier]
+  function getOwner(uint256 identifier) returns (address owner){
+    return owners[identifier];
   }
 
 

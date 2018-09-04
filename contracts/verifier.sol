@@ -6,6 +6,11 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 pragma solidity ^0.4.14;
+
+contract MainContract{
+  function receiveVerification(uint256, address){}
+}
+
 library Pairing {
     struct G1Point {
         uint X;
@@ -142,6 +147,7 @@ library Pairing {
     }
 }
 contract Verifier {
+    address mainContract = 0x0;
     using Pairing for *;
     struct VerifyingKey {
         Pairing.G2Point A;
@@ -210,7 +216,7 @@ contract Verifier {
             uint[2] h,
             uint[2] k,
             uint[2] input
-        ) public returns (uint256 verification) {
+        ) public returns (bool verification) {
         Proof memory proof;
         proof.A = Pairing.G1Point(a[0], a[1]);
         proof.A_p = Pairing.G1Point(a_p[0], a_p[1]);
@@ -226,7 +232,8 @@ contract Verifier {
         }
         if (verify(inputValues, proof) == 0) {
             emit Verified("Transaction successfully verified.");
-            mainContract.receiveVerification(input[0], input[1],msg.sender)
+            MainContract mainC = MainContract(mainContract);
+            mainC.receiveVerification(input[0],msg.sender);
             return true; // change if this is wrong
         } else {
             return false;
